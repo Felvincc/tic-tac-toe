@@ -69,9 +69,9 @@ def update(turns, x_boardState, o_boardState, row, whos_turn): #update the board
 
 
     if whos_turn % 2 == 0:
-        b = 'O'
-    else:
         b = 'X'
+    else:
+        b = 'O'
     print("\n<=====>")
     print("\nTurns:" + str(turns))
     print("Whos Turn: "+str(b))
