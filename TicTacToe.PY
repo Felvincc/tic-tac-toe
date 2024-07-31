@@ -35,16 +35,20 @@ class game_structure:
             
         return False        
 
-    def update(turns, x_boardState, o_boardState, row, whos_turn, ai, avatar): #update the board
+    def update(turns, x_boardState, o_boardState, row, whos_turn, ai): #update the board
 
+        
 
         if whos_turn % 2 == 0:
             b = 'X'
         else:
             b = 'O'
+        #print(''.join(row[0]) + "\n" +''.join(row[1]) + "\n" +''.join(row[2]))
         print("\n<=====>")
         print("\nTurns:" + str(turns))
-        print("Whos Turn: "+str(b))
+        print("Whos Turn: " + str(b))
+
+    
 
         turns = turns+1
 
@@ -60,7 +64,7 @@ class game_structure:
 
                 print(''.join(row[0]) + "\n" +''.join(row[1]) + "\n" +''.join(row[2]))
 
-                game_structure.update(turns, x_boardState, o_boardState, row, whos_turn, ai, avatar)
+                game_structure.update(turns, x_boardState, o_boardState, row, whos_turn, ai,)
 
             else:   
 
@@ -84,7 +88,7 @@ class game_structure:
                 else:
                     pass
 
-                game_structure.update(turns, x_boardState, o_boardState, row, whos_turn, ai, avatar)
+                game_structure.update(turns, x_boardState, o_boardState, row, whos_turn, ai,)
 
 
                 util.clearScreen()
@@ -113,15 +117,38 @@ class game_structure:
             print("invalid input BITCH!!!")
         return(a)
 
+    def ai(x_boardState,o_boardState, avatar):
+            win_conditions = [[1,2,3],[4,5,6],[7,8,9],[1,4,7],[2,5,8],[3,6,9],[1,5,9],[3,5,7]]
+
+            if avatar:
+                ai=x_boardState
+                player=o_boardState
+
+            else:
+                ai=o_boardState
+                player=x_boardState
+
+            #x = random.randint(0,7)
+            x = 0
+
+            print(win_conditions[x])
+            print(player)
+            is_present = any(item in player for item in win_conditions[x])
+
+            if is_present:
+                pass #next win condition
+            else:
+                print(is_present)
+
 class ui:
 
     def start_menu():
-        print("tic tac toe by jmdy\n\n")
+        print("\ntic tac toe by jmdy\n\n")
         print("1: Pass and play")
         print("2. Play against AI")
 
         userInput = int(input("\n"))
-
+        util.clearScreen()
         if userInput == 1:
             ai = False
             ui.play(ai)
@@ -150,44 +177,34 @@ class ui:
         x_boardState = set()
         o_boardState = set()
         row = util.createboard()
-        whos_turn = 0
-        avatar = True
+        whos_turn=0
+        userInput=None
 
         if ai:
             print("Which side would you like to play?") #avatar... i guess?
             print("1: X")
             print("2: O")
             userInput = int(input(""))
+            util.clearScreen()
         else:
-            pass
-        game_structure.update(turns, x_boardState, o_boardState, row, whos_turn, ai, avatar)
 
-class util:
+            if userInput == 2:
 
-    def ai(x_boardState,o_boardState, avatar):
-        win_conditions = [[1,2,3],[4,5,6],[7,8,9],[1,4,7],[2,5,8],[3,6,9],[1,5,9],[3,5,7]]
+                whos_turn=1
 
-        if avatar:
-            ai=x_boardState
-            player=o_boardState
+            elif userInput == 1:
 
-        else:
-            ai=o_boardState
-            player=x_boardState
+                whos_turn=0
+                
+            else:
 
-        #x = random.randint(0,7)
-        x = 0
-
-        print(win_conditions[x])
-        print(player)
-        is_present = any(item in player for item in win_conditions[x])
-
-        if is_present:
-            pass #next win condition
-        else:
-            print(is_present)
+                ui.play(ai)
 
         
+        game_structure.update(turns, x_boardState, o_boardState, row, whos_turn, ai)
+
+class util:
+ 
     def clearScreen():
         os.system('cls')
 
@@ -205,12 +222,11 @@ class util:
         return[row1, row2, row3]
 
 
-ai = False
-ui.play(ai)
 
-x_boardState=[2,3,4]
-o_boardState=[1,4,5]
-avatar = True       #true = x, false = o
-ai(x_boardState,o_boardState, avatar)
+ui.start_menu()
+
+
+
+
 
 
