@@ -143,6 +143,7 @@ class game_structure:
 class ui:
 
     def start_menu():
+        util.clearScreen()
         print("\ntic tac toe by jmdy\n\n")
         print("1: Pass and play")
         print("2. Play against AI")
@@ -178,7 +179,7 @@ class ui:
         o_boardState = set()
         row = util.createboard()
         whos_turn=0
-        userInput=None
+        userInput=0
 
         if ai:
             print("Which side would you like to play?") #avatar... i guess?
@@ -186,8 +187,7 @@ class ui:
             print("2: O")
             userInput = int(input(""))
             util.clearScreen()
-        else:
-
+        
             if userInput == 2:
 
                 whos_turn=1
@@ -200,6 +200,8 @@ class ui:
 
                 ui.play(ai)
 
+        else:
+            pass
         
         game_structure.update(turns, x_boardState, o_boardState, row, whos_turn, ai)
 
@@ -222,6 +224,8 @@ class util:
         return[row1, row2, row3]
 
 
+
+x = util
 
 ui.start_menu()
 

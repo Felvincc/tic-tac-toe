@@ -1,3 +1,2 @@
 
-
-        turns = turns+1
+                ai=x_boardState
